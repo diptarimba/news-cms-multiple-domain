@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginRegisterController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +20,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return redirect()->route('login.index');
-})->middleware('guest');
-
+Route::get('/', [NewsController::class, 'index'])->name('news');
+Route::get('/show', function() {
+   return redirect('/');
+});
+Route::get('/show/{slug}', [NewsController::class, 'show'])->name('news.show');
 Route::post('/upload', [ImageController::class, 'upload_image'])->name('image.upload');
 // Route::get('/register', function () {
 //     return view('page.auth.register');

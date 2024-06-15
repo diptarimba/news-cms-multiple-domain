@@ -10,5 +10,5 @@ class URLMapping extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['doman', 'name', 'code'];
+    protected $fillable = ['sub', 'domain', 'name', 'code'];
 }

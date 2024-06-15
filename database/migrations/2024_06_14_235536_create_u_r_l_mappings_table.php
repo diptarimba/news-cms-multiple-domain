@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('sub');
             $table->string('domain');
             $table->string('name');
-            $table->uuid('template_id');
+            $table->string('code');
             $table->timestamps();
         });
     }

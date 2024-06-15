@@ -57,6 +57,7 @@ class ContentController extends Controller
         ]);
 
         $title = preg_replace('/[^a-zA-Z0-9\s]/', '', $request->title);
+        $title = substr($title, 0, 100);
         $slug = Str::slug($title);
 
         $content = Content::create(array_merge($request->all(), [

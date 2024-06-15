@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Content extends Model
 {
@@ -31,5 +32,13 @@ class Content extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id', 'id');
+    }
+
+    public function getSpoilerAttribute()
+    {
+        $content = $this->content;
+        $text = strip_tags($content, '<br>'); // Menghapus semua tag HTML kecuali <br>
+        $text = preg_replace('/&quot;/', '"', $text); // Mengganti &quot; menjadi "
+        return Str::limit($text, 200); // Mengambil 200 karakter pertama sebagai spoiler
     }
 }
