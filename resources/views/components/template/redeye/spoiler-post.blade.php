@@ -1,7 +1,4 @@
-@hasSection('news')
-
-@endif
-@props(['category' => 'General', 'title' => '', 'date' => '', 'content' => '', 'url' => '', 'image' => ''])
+@props(['category' => '', 'title' => '', 'date' => '', 'content' => '', 'url' => '', 'image' => ''])
 <div class="flex flex-col md:flex-row">
     <img alt="Kini Bisa Live Streaming di Dunia Games, Dapat Cuan dari Gifting!" class="w-full md:w-24 h-24 object-cover"
         height="100"

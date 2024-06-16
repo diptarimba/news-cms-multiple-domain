@@ -19,8 +19,8 @@ class NewsController extends Controller
         $domain = implode(".", $domain);
 
         // $templateCode = URLMapping::first()->code;
-        $templateCode = 'redeye';
-        $news = Content::paginate(5);
+        $templateCode = 'antara';
+        $news = Content::with('author', 'category')->paginate(5);
         $recentlyArticle = Content::orderBy('created_at', 'desc')->get()->pluck('name');
         $category = Category::get()->pluck('name');
         return view('page.news.index', compact('news', 'subdomain', 'templateCode', 'recentlyArticle', 'category'));
@@ -29,7 +29,7 @@ class NewsController extends Controller
     public function show($slug)
     {
         // $templateCode = URLMapping::first()->code;
-        $templateCode = 'redeye';
+        $templateCode = 'antara';
         $category = Category::get()->pluck('name');
         $news = Content::where('slug', $slug)->first();
         $news->posted_at = Carbon::parse($news->posted_at)->format("d F Y");
