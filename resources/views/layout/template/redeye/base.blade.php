@@ -87,7 +87,7 @@
           <a class="hover:text-gray-300 cursor-pointer md:hidden" onclick="toggleCategories()"><i class="fas fa-bars"></i></a>
          </div>
         </div>
-        <div id="hidden-categories" class="hidden-categories bg-white text-black p-4 md:hidden">
+        <div id="hidden-categories" class="hidden-categories bg-white text-black p-4 hidden">
          <nav class="space-y-2">
             @stack('category-mobile')
          </nav>
