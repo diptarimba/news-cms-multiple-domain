@@ -1,16 +1,23 @@
-@if ($templateCode == 'greymilk')
-    @extends('layout.template.greymilk.base')
-    @section('nav')
-        @foreach ($category as $each)
-            <x-template.greymilk.category-head title="{{ $each }}" />
-        @endforeach
-    @endsection
+@extends($templateCode == 'greymilk' ? 'layout.template.greymilk.base' : 'layout.template.oceanblue.base')
+@section('nav')
+    @foreach ($category as $each)
+        @include(
+            $templateCode == 'greymilk'
+                ? 'components.template.greymilk.category-head'
+                : 'components.template.oceanblue.category-head',
+            ['title' => $each]
+        )
+    @endforeach
+@endsection
 
-    @section('content')
-        <x-template.greymilk.show-news category="{{$news->category->name}}" title="{{ $news->title }}" date="{{ $news->posted_at }}">
-            <x-slot name="content">
-                {!! $news->content !!}
-            </x-slot>
-        </x-template.greymilk.show-news>
-    @endsection
-@endif
+@section('content')
+    @include(
+        ($templateCode == 'oceanblue' ? 'components.template.oceanblue' : 'components.template.greymilk').'.show-news',
+        [
+            'category' => $news->category->name,
+            'title' => $news->title,
+            'date' => $news->posted_at,
+            'content' => $news->content,
+        ]
+    )
+@endsection
