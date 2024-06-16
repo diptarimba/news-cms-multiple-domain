@@ -20,6 +20,10 @@ class NewsSeeder extends Seeder
     {
         // Path ke file CSV di dalam folder public
         $csvPath = public_path('berita.csv');
+        if (!file_exists($csvPath)) {
+            echo 'File CSV tidak ditemukan.' . PHP_EOL;
+            return;
+        }
 
         // Membaca file CSV
         $csv = Reader::createFromPath($csvPath, 'r');
