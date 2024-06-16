@@ -1,10 +1,12 @@
-@extends($templateCode == 'greymilk' ? 'layout.template.greymilk.base' : 'layout.template.oceanblue.base')
+@extends(($templateCode == 'greymilk'
+? 'layout.template.greymilk'
+: ($templateCode == 'oceanblue' ? 'layout.template.oceanblue' : 'layout.template.redeye')).'.base')
 @section('nav')
     @foreach ($category as $each)
         @include(
-            $templateCode == 'greymilk'
-                ? 'components.template.greymilk.category-head'
-                : 'components.template.oceanblue.category-head',
+            ($templateCode == 'greymilk'
+                ? 'components.template.greymilk'
+                : ($templateCode == 'oceanblue' ? 'components.template.oceanblue' : 'components.template.redeye')).'.category-head',
             ['title' => $each]
         )
     @endforeach
@@ -12,7 +14,9 @@
 
 @section('content')
     @include(
-        ($templateCode == 'oceanblue' ? 'components.template.oceanblue' : 'components.template.greymilk').'.show-news',
+        ($templateCode == 'greymilk'
+                ? 'components.template.greymilk'
+                : ($templateCode == 'oceanblue' ? 'components.template.oceanblue' : 'components.template.redeye')).'.show-news',
         [
             'category' => $news->category->name,
             'title' => $news->title,

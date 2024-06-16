@@ -34,11 +34,22 @@ class Content extends Model
         return $this->belongsTo(User::class, 'author_id', 'id');
     }
 
+    public function getImageAttribute()
+    {
+        if (preg_match('/<img.*?src="(.*?)"/', $this->content, $matches)) {
+            return $this->image = $matches[1];
+        }
+
+        return null;
+    }
+
     public function getSpoilerAttribute()
     {
         $content = $this->content;
         $text = strip_tags($content, '<br>'); // Menghapus semua tag HTML kecuali <br>
+        $text = preg_replace('/<br>/', '. ', $text); // Mengganti &quot; menjadi "
         $text = preg_replace('/&quot;/', '"', $text); // Mengganti &quot; menjadi "
+        $text = preg_replace('/&nbsp;/', ' ', $text); // Mengganti &quot; menjadi "
         return Str::limit($text, 200); // Mengambil 200 karakter pertama sebagai spoiler
     }
 }

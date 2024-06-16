@@ -1,38 +1,50 @@
-@extends($templateCode == 'greymilk' ? 'layout.template.greymilk.base' : 'layout.template.oceanblue.base')
+@extends(($templateCode == 'greymilk' ? 'layout.template.greymilk' : ($templateCode == 'oceanblue' ? 'layout.template.oceanblue' : 'layout.template.redeye')) . '.base')
 
 @section('nav')
     @foreach ($category as $each)
         @include(
-            $templateCode == 'greymilk'
-                ? 'components.template.greymilk.category-head'
-                : 'components.template.oceanblue.category-head',
+            ($templateCode == 'greymilk'
+                ? 'components.template.greymilk'
+                : ($templateCode == 'oceanblue'
+                    ? 'components.template.oceanblue'
+                    : 'components.template.redeye')) . '.category-head',
             ['title' => $each]
         )
     @endforeach
 @endsection
 
 @section('content')
-    @foreach ($news as $each)
-        @include(
-            $templateCode == 'greymilk'
-                ? 'components.template.greymilk.spoiler-post'
-                : 'components.template.oceanblue.spoiler-post',
-            [
-                'category' => $each->category->name,
-                'title' => $each->title,
-                'date' => $templateCode == 'greymilk' ? $each->created_at : $each->posted_at,
-                'content' => $each->spoiler,
-                'url' => route('news.show', ['slug' => $each->slug]),
-            ]
-        )
-    @endforeach
+    @if (in_array($templateCode, ['greymilk', 'oceanblue']))
+        @foreach ($news as $each)
+            @include(
+                ($templateCode == 'greymilk'
+                    ? 'components.template.greymilk'
+                    : ($templateCode == 'oceanblue'
+                        ? 'components.template.oceanblue'
+                        : 'components.template.redeye')) . '.spoiler-post',
+                [
+                    'category' => $each->category->name,
+                    'title' => $each->title,
+                    'date' => $each->posted_at,
+                    'content' => $each->spoiler,
+                    'url' => route('news.show', ['slug' => $each->slug]),
+                ]
+            )
+        @endforeach
+    @elseif (in_array($templateCode, ['redeye']))
+        @include('components.template.redeye.card-news', [
+            'content' => $news,
+        ])
+    @endif
 @endsection
 
 @section('pagination')
     @include(
-        $templateCode == 'greymilk'
-            ? 'components.template.greymilk.paginate'
-            : 'components.template.oceanblue.paginate',
+        ($templateCode == 'greymilk'
+            ? 'components.template.greymilk'
+            : ($templateCode == 'oceanblue'
+                ? 'components.template.oceanblue'
+                : 'components.template.redeye')) . '.paginate',
         ['news' => $news]
     )
 @endsection
@@ -44,10 +56,10 @@
         @endforeach
     @endsection
     @section('head-carousel')
-    @foreach ($news as $each)
+        @foreach ($news as $each)
             @include('components.template.oceanblue.carousel-recent', [
                 'title' => $each->title,
-                'category' => $each->category->name
+                'category' => $each->category->name,
             ])
         @endforeach
     @endsection
