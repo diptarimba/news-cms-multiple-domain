@@ -1,29 +1,36 @@
-{{-- @extends(($templateCode == 'greymilk' ? 'layout.template.greymilk' : ($templateCode == 'oceanblue' ? 'layout.template.oceanblue' : 'layout.template.redeye')) . '.base') --}}
 @extends('layout.template.'.$templateCode.'.base')
 
 @section('nav')
-    @foreach ($category as $each)
+    @foreach ($category as $key => $each)
         @include(
-            // ($templateCode == 'greymilk'
-            //     ? 'components.template.greymilk'
-            //     : ($templateCode == 'oceanblue'
-            //         ? 'components.template.oceanblue'
-            //         : 'components.template.redeye')) . '.category-head',
             'components.template.'.$templateCode.'.category-head',
-            ['title' => $each]
+            [
+                'title' => $each,
+                'hide' => $key < 3 ? false : true,
+            ]
         )
     @endforeach
 @endsection
 
+@if ($templateCode == 'minima')
+@section('second-nav')
+    @foreach ($category as $key => $each)
+        @if ($key >= 3)
+        @include(
+            'components.template.'.$templateCode.'.category-head',
+            [
+                'title' => $each,
+            ]
+        )
+        @endif
+    @endforeach
+@endsection
+@endif
+
 @section('content')
-    @if (in_array($templateCode, ['greymilk', 'oceanblue']))
+    @if (in_array($templateCode, ['greymilk', 'oceanblue', 'minima']))
         @foreach ($news as $each)
             @include(
-                // ($templateCode == 'greymilk'
-                //     ? 'components.template.greymilk'
-                //     : ($templateCode == 'oceanblue'
-                //         ? 'components.template.oceanblue'
-                //         : 'components.template.redeye')) . '.spoiler-post',
                 'components.template.'.$templateCode.'.spoiler-post',
                 [
                     'category' => $each->category->name,
@@ -31,6 +38,7 @@
                     'date' => $each->posted_at,
                     'content' => $each->spoiler,
                     'author' => $each->author,
+                    'image' => $each->image,
                     'url' => route('news.show', ['slug' => $each->slug]),
                 ]
             )
@@ -44,11 +52,6 @@
 
 @section('pagination')
     @include(
-        // ($templateCode == 'greymilk'
-        //     ? 'components.template.greymilk'
-        //     : ($templateCode == 'oceanblue'
-        //         ? 'components.template.oceanblue'
-        //         : 'components.template.redeye')) . '.paginate',
         'components.template.'.$templateCode.'.paginate',
         ['news' => $news]
     )
