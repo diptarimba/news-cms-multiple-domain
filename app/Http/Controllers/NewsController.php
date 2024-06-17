@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DownloadContent;
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\URLMapping;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NewsController extends Controller
 {
@@ -43,5 +45,10 @@ class NewsController extends Controller
         $news = Content::with('author')->where('slug', $slug)->first();
         $news->posted_at = Carbon::parse($news->posted_at)->format("d F Y");
         return view('page.news.show', compact('news', 'category', 'templateCode', 'template'));
+    }
+
+    public function download(Request $request)
+    {
+        return Excel::download(new DownloadContent, 'news.xlsx');
     }
 }
