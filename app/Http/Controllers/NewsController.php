@@ -18,18 +18,24 @@ class NewsController extends Controller
         unset($domain[0]);
         $domain = implode(".", $domain);
 
-        // $templateCode = URLMapping::first()->code;
-        $templateCode = 'greymilk';
+        $template = URLMapping::where('sub', $subdomain)->where('domain', $domain)->first();
+        $templateCode = $template ? $template->code : 'greymilk';
         $news = Content::with('author', 'category')->paginate(5);
         $recentlyArticle = Content::orderBy('created_at', 'desc')->get()->pluck('name');
         $category = Category::get()->pluck('name');
         return view('page.news.index', compact('news', 'subdomain', 'templateCode', 'recentlyArticle', 'category'));
     }
 
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
-        // $templateCode = URLMapping::first()->code;
-        $templateCode = 'greymilk';
+        $domain = $request->getHttpHost();
+        $domain = explode('.', $domain);
+        $subdomain = $domain[0];
+        unset($domain[0]);
+        $domain = implode(".", $domain);
+
+        $template = URLMapping::where('sub', $subdomain)->where('domain', $domain)->first();
+        $templateCode = $template ? $template->code : 'greymilk';
         $category = Category::get()->pluck('name');
         $news = Content::with('author')->where('slug', $slug)->first();
         $news->posted_at = Carbon::parse($news->posted_at)->format("d F Y");
