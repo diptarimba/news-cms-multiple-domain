@@ -14,9 +14,9 @@ class URLMappingSeeder extends Seeder
     {
         $data = [
             ['sub' => 'nasional', 'domain' => 'miracrate.my.id', 'name' => 'Miracrate Indonesi', 'code' => 'greymilk'],
-            ['sub' => 'yogyakarta', 'domain' => 'miracrate.my.id', 'name' => 'Miracrate Indonesi', 'code' => 'oceanblue'],
-            ['sub' => 'bandung', 'domain' => 'miracrate.my.id', 'name' => 'Miracrate Indonesi', 'code' => 'antara'],
-            ['sub' => 'surabaya', 'domain' => 'miracrate.my.id', 'name' => 'Listrik Nusantara', 'code' => 'redeye'],
+            ['sub' => 'yogyakarta', 'domain' => 'miracrate.my.id', 'name' => 'Miracrate Indodana', 'code' => 'oceanblue'],
+            ['sub' => 'bandung', 'domain' => 'miracrate.my.id', 'name' => 'Miracrate Indoraya', 'code' => 'antara'],
+            ['sub' => 'surabaya', 'domain' => 'miracrate.my.id', 'name' => 'Miracrate Indomilk', 'code' => 'redeye'],
         ];
 
         foreach($data as $each){
