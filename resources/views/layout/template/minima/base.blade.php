@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>
-        Minima
+        @yield('webname')
     </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
@@ -32,7 +32,7 @@
 <body class="bg-white text-gray-800">
     <header class="text-center py-8">
         <h1 class="text-2xl font-bold mt-4">
-            Jane Doe
+            @yield('webname')
         </h1>
     </header>
     <nav class="flex justify-center space-x-4 py-4 border-b">
@@ -99,7 +99,7 @@
             </a>
         </nav>
         <p class="text-gray-600">
-            Code © {{date('Y')}} Minima. All rights reserved.
+            Code © {{date('Y')}} @yield('webname'). All rights reserved.
         </p>
     </footer>
 </body>

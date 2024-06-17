@@ -1,7 +1,7 @@
 <html>
  <head>
   <title>
-   Uzone Games
+    @yield('webname')
   </title>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <script src="https://cdn.tailwindcss.com">
@@ -75,8 +75,7 @@
         <div class="container mx-auto flex justify-between items-center py-4 px-4 md:px-0">
          <div class="flex items-center">
           <a class="text-2xl font-bold" href="/">
-           Uzone
-           <span class="text-pink-300">GAMES</span>
+           @yield('webname')
           </a>
          </div>
          <nav class="hidden md:flex space-x-4">
@@ -102,10 +101,7 @@
    <div class="container mx-auto text-center">
     <div class="mb-4">
      <a class="text-2xl font-bold" href="#">
-      Uzone
-      <span class="text-pink-300">
-       ID
-      </span>
+        @yield('webname')
      </a>
     </div>
     <div class="space-x-4 mb-4">
@@ -141,7 +137,7 @@
      </a>
     </div>
     <div class="text-gray-600">
-     © 2024 PT. Metra-Net. All rights reserved.
+     © 2024 @yield('webname'). All rights reserved.
     </div>
    </div>
   </footer>

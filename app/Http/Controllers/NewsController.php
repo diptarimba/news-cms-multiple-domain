@@ -19,6 +19,8 @@ class NewsController extends Controller
         $domain = implode(".", $domain);
 
         $template = URLMapping::where('sub', $subdomain)->where('domain', $domain)->first();
+
+        $template = is_null($template) ? URLMapping::first(): $template;
         $templateCode = $template ? $template->code : 'greymilk';
         $news = Content::with('author', 'category')->paginate(5);
         $recentlyArticle = Content::orderBy('created_at', 'desc')->get()->pluck('name');
@@ -35,6 +37,7 @@ class NewsController extends Controller
         $domain = implode(".", $domain);
 
         $template = URLMapping::where('sub', $subdomain)->where('domain', $domain)->first();
+        $template = is_null($template) ? URLMapping::first(): $template;
         $templateCode = $template ? $template->code : 'greymilk';
         $category = Category::get()->pluck('name');
         $news = Content::with('author')->where('slug', $slug)->first();

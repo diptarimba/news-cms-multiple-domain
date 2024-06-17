@@ -2,7 +2,7 @@
 
 <head>
     <title>
-        Single Post - Antara Babel
+        @yield('webname')
     </title>
     <script src="https://cdn.tailwindcss.com">
     </script>
@@ -50,7 +50,7 @@
     <nav class="bg-red-700">
         <div class="container mx-auto px-4 py-2 flex justify-between items-center">
             <a class="text-white text-lg font-bold" href="#">
-                ANTARA BABEL
+                @yield('webname')
             </a>
             <div class="md:hidden">
                 <button id="burger" class="text-white focus:outline-none">
@@ -72,7 +72,7 @@
             <div class="flex justify-between items-center">
                 <div>
                     <p>
-                        &copy; 2024 Antara Babel. All rights reserved.
+                        &copy; 2024 @yield('webname'). All rights reserved.
                     </p>
                 </div>
                 <div class="flex space-x-4">

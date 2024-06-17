@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>
-        Kompas Energi
+        @yield('webname')
     </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
                     src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-EpAov7aTUy4BCYmD6GKTjpvO/user-JR3sZQpahJls32fj7ZDxreYz/img-99OjzVjTtN6l3zHm0Ykouerw.png?st=2024-06-15T07%3A57%3A42Z&amp;se=2024-06-15T09%3A57%3A42Z&amp;sp=r&amp;sv=2023-11-03&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-06-14T19%3A12%3A09Z&amp;ske=2024-06-15T19%3A12%3A09Z&amp;sks=b&amp;skv=2023-11-03&amp;sig=ksWdfrnJj01csF4C/4GIREuzck0l5d4%2Bq4WWjp59SBc%3D"
                     width="50" />
                 <h1 class="text-2xl font-bold ml-2">
-                    Kompas Energi
+                    @yield('webname')
                 </h1>
             </div>
             <div class="md:hidden">
@@ -266,7 +266,7 @@
     <footer class="bg-gray-800 text-white py-4">
         <div class="container mx-auto text-center">
             <p>
-                Copyright © 2024
+                Copyright © 2024 . @yield('webname')
             </p>
         </div>
     </footer>

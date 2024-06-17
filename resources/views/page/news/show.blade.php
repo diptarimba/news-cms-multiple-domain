@@ -8,6 +8,8 @@
     @endforeach
 @endsection
 
+@section('webname', $template->name)
+
 @section('content')
     @include(
         'components.template.'.$templateCode.'.show-news',

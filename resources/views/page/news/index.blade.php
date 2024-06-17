@@ -12,6 +12,8 @@
     @endforeach
 @endsection
 
+@section('webname', $template->name)
+
 @if ($templateCode == 'minima')
 @section('second-nav')
     @foreach ($category as $key => $each)
