@@ -23,7 +23,7 @@ class NewsController extends Controller
         $news = Content::with('author', 'category')->paginate(5);
         $recentlyArticle = Content::orderBy('created_at', 'desc')->get()->pluck('name');
         $category = Category::get()->pluck('name');
-        return view('page.news.index', compact('news', 'subdomain', 'templateCode', 'recentlyArticle', 'category'));
+        return view('page.news.index', compact('news', 'subdomain', 'templateCode', 'recentlyArticle', 'category', 'template'));
     }
 
     public function show(Request $request, $slug)
@@ -39,6 +39,6 @@ class NewsController extends Controller
         $category = Category::get()->pluck('name');
         $news = Content::with('author')->where('slug', $slug)->first();
         $news->posted_at = Carbon::parse($news->posted_at)->format("d F Y");
-        return view('page.news.show', compact('news', 'category', 'templateCode'));
+        return view('page.news.show', compact('news', 'category', 'templateCode', 'template'));
     }
 }
