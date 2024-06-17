@@ -33,6 +33,7 @@ class DownloadContent implements FromArray, WithHeadings
                     'Title' => $eachNews->title,
                     'Date' => Carbon::parse($eachNews->posted_at)->format('d F Y'),
                   ];
+                  $no++;
             }
         }
 
