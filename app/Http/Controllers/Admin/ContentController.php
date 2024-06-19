@@ -59,7 +59,7 @@ class ContentController extends Controller
         $title = trim($request->title);
         $title = preg_replace('/[^a-zA-Z0-9\s]/', '', $title);
         $title = substr($title, 0, 100);
-        $slug = Str::slug($title);
+        $slug = Str::slug($title) .'-'. strtoupper(Str::random(10));
 
         $content = Content::create(array_merge($request->all(), [
             'author_id' => auth()->user()->id,
