@@ -89,6 +89,7 @@ class ContentController extends Controller
     {
         $data = $this->createMetaPageData($content->id, 'Content', 'content');
         $category = Category::get()->pluck('name', 'id');
+        $content->posted_at = Carbon::parse($content->posted_at)->format("Y-m-d");
         return view('page.admin-dashboard.content.create-edit', compact('data', 'content', 'category'));
     }
 
