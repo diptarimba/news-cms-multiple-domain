@@ -65,6 +65,10 @@ class ContentController extends Controller
             'slug' =>  $slug
         ]));
 
+        if ($request->recreate){
+            return redirect()->route('admin.content.create', ['posted_at' => $request->posted_at, 'category_id' => $request->category_id])->with('success', 'Content has been created');
+        }
+
         return redirect()->route('admin.content.index')->with('success', 'Content has been created');
     }
 
