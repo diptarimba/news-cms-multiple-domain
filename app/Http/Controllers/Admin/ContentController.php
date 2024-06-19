@@ -56,13 +56,15 @@ class ContentController extends Controller
             'category_id' => 'required',
         ]);
 
-        $title = preg_replace('/[^a-zA-Z0-9\s]/', '', $request->title);
+        $title = trim($request->title);
+        $title = preg_replace('/[^a-zA-Z0-9\s]/', '', $title);
         $title = substr($title, 0, 100);
         $slug = Str::slug($title);
 
         $content = Content::create(array_merge($request->all(), [
             'author_id' => auth()->user()->id,
-            'slug' =>  $slug
+            'slug' =>  $slug,
+            'title' => trim($request->title)
         ]));
 
         if ($request->recreate){
@@ -102,7 +104,9 @@ class ContentController extends Controller
             'category_id' => 'required',
         ]);
 
-        $content->update($request->all());
+        $content->update($request->all(), [
+            'title' => trim($request->title),
+        ]);
         return redirect()->route('admin.content.index')->with('success', 'Content has been updated');
     }
 
