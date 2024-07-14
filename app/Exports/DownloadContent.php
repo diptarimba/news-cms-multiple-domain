@@ -14,10 +14,12 @@ class DownloadContent implements FromArray, WithHeadings
     protected $content;
     protected $url_map;
 
-    public function __construct()
+    public function __construct($start_at, $end_at, $web)
     {
-        $this->content = Content::all();
-        $this->url_map = URLMapping::all();
+        $this->content = Content::where(function($query) use ($start_at, $end_at) {
+            $query->whereDate('posted_at', '>=', $start_at)->whereDate('posted_at', '<=', $end_at);
+        })->get();
+        $this->url_map = URLMapping::whereIn('id', $web)->get();
     }
 
     public function array(): array
@@ -27,6 +29,9 @@ class DownloadContent implements FromArray, WithHeadings
         foreach($this->url_map as $eachURL){
             foreach($this->content as $eachNews)
             {
+                if (trim($eachNews) == ""){
+                    continue;
+                }
                 $combinedData[] = [
                     'No' => $no,
                     'URL' => $eachURL->sub . '.' . $eachURL->domain . '/show/'  . $eachNews->slug,

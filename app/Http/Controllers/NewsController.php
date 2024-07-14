@@ -51,8 +51,23 @@ class NewsController extends Controller
         return view('page.news.show', compact('news', 'category', 'templateCode', 'template'));
     }
 
+    public function custom_download()
+    {
+        $website = URLMapping::get();
+        $website = $website->mapWithKeys(function($query) {
+            return [$query->id => $query->sub . '.' . $query->domain];
+        });
+        return view('page.download.form', compact('website'));
+    }
     public function download(Request $request)
     {
-        return Excel::download(new DownloadContent, 'news.xlsx');
+        $request->validate([
+           'start_at' => 'required',
+           'end_at' => 'required',
+           'website_id' => 'required|array',
+           'website_id.*' => 'required|exists:u_r_l_mappings,id',
+        ]);
+
+        return Excel::download(new DownloadContent($request->start_at, $request->end_at, $request->website_id), 'news.xlsx');
     }
 }

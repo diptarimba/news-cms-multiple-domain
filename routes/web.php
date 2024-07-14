@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', [NewsController::class, 'index'])->name('news');
-Route::get('/download', [NewsController::class, 'download'])->name('news.download');
+Route::get('/download', [NewsController::class, 'custom_download'])->name('news.form');
+Route::post('/download', [NewsController::class, 'download'])->name('news.download');
 Route::get('/show', function() {
    return redirect('/');
 });
