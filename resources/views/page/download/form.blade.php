@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('page-link', '')
-@section('page-title', 'User')
+@section('page-title', 'Download News')
 @section('sub-page-title', 'Data')
 
 @push('additional-header')

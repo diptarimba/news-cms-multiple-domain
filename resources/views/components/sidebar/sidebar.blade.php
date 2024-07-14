@@ -6,14 +6,16 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu" id="side-menu">
-                <x-sidebar.divider title="Menu" />
-                @if (auth()->user()->getRoleNames()->first() == 'admin')
-                <x-sidebar.first-single title="Dashboard" key="dashboard" icon="home"
-                    url="{{ route('admin.dashboard') }}" />
-                <x-sidebar.first-single title="Content" key="dashboard" icon="briefcase"
-                    url="{{ route('admin.content.index') }}" />
-                <x-sidebar.first-single title="Admin" key="admin" icon="key"
-                    url="{{ route('admin.admin.index') }}" />
+                @if (!auth()->guest())
+                    <x-sidebar.divider title="Menu" />
+                    @if (auth()->user()->getRoleNames()->first() == 'admin')
+                        <x-sidebar.first-single title="Dashboard" key="dashboard" icon="home"
+                            url="{{ route('admin.dashboard') }}" />
+                        <x-sidebar.first-single title="Content" key="dashboard" icon="briefcase"
+                            url="{{ route('admin.content.index') }}" />
+                        <x-sidebar.first-single title="Admin" key="admin" icon="key"
+                            url="{{ route('admin.admin.index') }}" />
+                    @endif
                 @endif
             </ul>
         </div>

@@ -1,19 +1,32 @@
-<nav class="border-b border-slate-100 dark:bg-zinc-800 print:hidden flex items-center fixed top-0 right-0 left-0 bg-white z-10 dark:border-zinc-700">
+<nav
+    class="border-b border-slate-100 dark:bg-zinc-800 print:hidden flex items-center fixed top-0 right-0 left-0 bg-white z-10 dark:border-zinc-700">
 
     <div class="flex items-center justify-between w-full">
         <div class="topbar-brand flex items-center">
-            <div class="navbar-brand flex items-center justify-between shrink px-5 h-[70px] border-r bg-slate-50 border-r-gray-50 dark:border-zinc-700 dark:bg-zinc-800">
+            <div
+                class="navbar-brand flex items-center justify-between shrink px-5 h-[70px] border-r bg-slate-50 border-r-gray-50 dark:border-zinc-700 dark:bg-zinc-800">
                 <a href="#" class="flex items-center font-bold text-lg  dark:text-white">
-                    @if (auth()->user()->getRoleNames()->first() == 'admin')
-                    <img src="{{ asset('assets-dashboard/images/stegano.svg') }}" alt="" class="ltr:mr-2 rtl:ml-2 inline-block mt-1 h-6" />
-                    <span class="hidden xl:block align-middle">{{config('app.name')}}</span>
-                    @elseif(auth()->user()->getRoleNames()->first() == 'user_corporate')
-                    <img src="{{ asset(auth()->user()->corporate->image)}}" alt="" class="ltr:mr-2 rtl:ml-2 inline-block mt-1 h-6" />
-                    <span class="hidden xl:block align-middle">{{auth()->user()->corporate->name}}</span>
+                    @if (!auth()->guest())
+                        @if (auth()->user()->getRoleNames()->first() == 'admin')
+                            <img src="{{ asset('assets-dashboard/images/stegano.svg') }}" alt=""
+                                class="ltr:mr-2 rtl:ml-2 inline-block mt-1 h-6" />
+                            <span class="hidden xl:block align-middle">{{ config('app.name') }}</span>
+                        @else
+                            <img src="{{ asset('assets-dashboard/images/stegano.svg') }}" alt=""
+                                class="ltr:mr-2 rtl:ml-2 inline-block mt-1 h-6" />
+                            <span class="hidden xl:block align-middle">{{ config('app.name') }}</span>
+                        @endif
+                    @else
+                        <img src="{{ asset('assets-dashboard/images/stegano.svg') }}" alt=""
+                            class="ltr:mr-2 rtl:ml-2 inline-block mt-1 h-6" />
+                        <span class="hidden xl:block align-middle">{{ config('app.name') }}</span>
                     @endif
+
                 </a>
             </div>
-            <button type="button" class="text-gray-600 dark:text-white h-[70px] ltr:-ml-10 ltr:mr-6 rtl:-mr-10 rtl:ml-10 vertical-menu-btn" id="vertical-menu-btn">
+            <button type="button"
+                class="text-gray-600 dark:text-white h-[70px] ltr:-ml-10 ltr:mr-6 rtl:-mr-10 rtl:ml-10 vertical-menu-btn"
+                id="vertical-menu-btn">
                 <i class="fa fa-fw fa-bars"></i>
             </button>
             {{-- <form class="app-search hidden xl:block px-5">
@@ -67,7 +80,8 @@
             </div> --}}
 
             <div>
-                <button type="button" class="light-dark-mode text-xl px-4 h-[70px] text-gray-600 dark:text-gray-100 hidden sm:block ">
+                <button type="button"
+                    class="light-dark-mode text-xl px-4 h-[70px] text-gray-600 dark:text-gray-100 hidden sm:block ">
                     <i data-feather="moon" class="h-5 w-5 block dark:hidden"></i>
                     <i data-feather="sun" class="h-5 w-5 hidden dark:block"></i>
             </div>
@@ -207,36 +221,50 @@
 
 
             <div>
+                @if (!auth()->guest())
+
+
                 <div class="dropdown relative ltr:mr-4 rtl:ml-4">
-                    <button type="button" class="flex items-center px-4 py-5 border-x border-gray-50 bg-gray-50/30 dropdown-toggle dark:bg-zinc-700 dark:border-zinc-600 dark:text-gray-100" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <img class="h-8 w-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2" src="{{ Auth::user()->picture ?? asset('assets-dashboard/images/placeholder.png') }}" alt="Header Avatar">
-                        <span class="fw-medium hidden xl:block">{{Auth::user()->name}}</span>
+                    <button type="button"
+                        class="flex items-center px-4 py-5 border-x border-gray-50 bg-gray-50/30 dropdown-toggle dark:bg-zinc-700 dark:border-zinc-600 dark:text-gray-100"
+                        id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="true">
+                        <img class="h-8 w-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
+                            src="{{ Auth::user()->picture ?? asset('assets-dashboard/images/placeholder.png') }}"
+                            alt="Header Avatar">
+                        <span class="fw-medium hidden xl:block">{{ Auth::user()->name }}</span>
                         <i class="mdi mdi-chevron-down align-bottom hidden xl:block"></i>
                     </button>
-                    <div class="dropdown-menu absolute top-0 ltr:-left-3 rtl:-right-3 z-50 hidden w-40 list-none rounded bg-white shadow dark:bg-zinc-800" id="profile/log">
+                    <div class="dropdown-menu absolute top-0 ltr:-left-3 rtl:-right-3 z-50 hidden w-40 list-none rounded bg-white shadow dark:bg-zinc-800"
+                        id="profile/log">
                         <div class="border border-gray-50 dark:border-zinc-600" aria-labelledby="navNotifications">
                             <div class="dropdown-item dark:text-gray-100">
-                                <a class="px-3 py-2 hover:bg-gray-50/50 block dark:hover:bg-zinc-700/50" href="{{route('profile.me')}}">
+                                <a class="px-3 py-2 hover:bg-gray-50/50 block dark:hover:bg-zinc-700/50"
+                                    href="{{ route('profile.me') }}">
                                     <i class="mdi mdi-face-man text-16 align-middle mr-1"></i> Profile
                                 </a>
                             </div>
                             <hr class="border-gray-50 dark:border-gray-700">
                             @if (Auth::user()->hasRole('user_corporate'))
-                            <div class="dropdown-item dark:text-gray-100">
-                                <a class="px-3 py-2 hover:bg-gray-50/50 block dark:hover:bg-zinc-700/50" href="{{route('corporate.company.index')}}">
-                                    <i class="mdi mdi-account-details text-16 align-middle mr-1"></i> Company Profile
-                                </a>
-                            </div>
+                                <div class="dropdown-item dark:text-gray-100">
+                                    <a class="px-3 py-2 hover:bg-gray-50/50 block dark:hover:bg-zinc-700/50"
+                                        href="{{ route('corporate.company.index') }}">
+                                        <i class="mdi mdi-account-details text-16 align-middle mr-1"></i> Company
+                                        Profile
+                                    </a>
+                                </div>
                             @endif
                             <hr class="border-gray-50 dark:border-gray-700">
                             <div class="dropdown-item dark:text-gray-100">
-                                <a class="p-3 hover:bg-gray-50/50 block dark:hover:bg-zinc-700/50" href="{{route('logout')}}">
+                                <a class="p-3 hover:bg-gray-50/50 block dark:hover:bg-zinc-700/50"
+                                    href="{{ route('logout') }}">
                                     <i class="mdi mdi-logout text-16 align-middle mr-1"></i> Logout
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
