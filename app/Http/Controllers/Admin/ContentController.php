@@ -18,20 +18,50 @@ class ContentController extends Controller
     {
         if($request->ajax())
         {
-            $content = Content::select();
+            $content = Content::orderBy('created_at', 'desc')->select()->limit(50);
+            $domain = $request->getHttpHost();
             return datatables()->of($content)
             ->addIndexColumn()
             ->addColumn('posted_at', function($query){
                 return Carbon::parse($query->posted_at)->format("d F Y");
             })
+            ->addColumn('link', function($query) use ($domain){
+                $url = $domain . '/show/' . $query->slug;
+                $buttonAction = '<a target="_blank" href="//' . $url . '" class="' . self::CLASS_BUTTON_INFO . '">View</a>';
+                return $buttonAction;
+            })
             ->addColumn('action', function ($query) {
                 return $this->getActionColumn($query, 'content');
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'link'])
             ->make(true);
         }
 
         return view('page.admin-dashboard.content.index');
+    }
+
+    public function getActionColumn($data, $path = '', $prefix = 'admin')
+    {
+        $ident = Str::random(10);
+        $editBtn = route("$prefix.$path.edit", $data->id);
+        $deleteBtn = route("$prefix.$path.destroy", $data->id);
+        $duplicateBtn = route("$prefix.$path.duplicate", $data->id);
+        $buttonAction = '<a href="' . $duplicateBtn . '" class="' . self::CLASS_BUTTON_WARNING . '">Duplicate</a>';
+        $buttonAction .= '<a href="' . $editBtn . '" class="' . self::CLASS_BUTTON_PRIMARY . '">Edit</a>';
+        $buttonAction .= '<button type="button" onclick="delete_data(\'form' . $ident . '\')"class="' . self::CLASS_BUTTON_DANGER . '">Delete</button>' . '<form id="form' . $ident . '" action="' . $deleteBtn . '" method="post"> <input type="hidden" name="_token" value="' . csrf_token() . '" /> <input type="hidden" name="_method" value="DELETE"> </form>';
+        return $buttonAction;
+    }
+
+    public function duplicate(Content $content)
+    {
+        $data = [
+            'title' => "Duplicate Content Data",
+            'url' => route("admin.content.store"),
+            'home' => route("admin.content.index")
+        ];
+        $category = Category::get()->pluck('name', 'id');
+        $content->posted_at = Carbon::parse($content->posted_at)->format("Y-m-d");
+        return view('page.admin-dashboard.content.create-edit', compact('data', 'content', 'category'));
     }
 
     /**

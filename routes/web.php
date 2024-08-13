@@ -47,6 +47,7 @@ Route::middleware(['no_auth'])->group(function () {
     Route::prefix('admin')->as('admin.')->middleware(['role:admin', 'auth'])->group(function () {
         Route::get('dashboard', [AdminHomeController::class, 'index'])->name('dashboard');
         Route::resource('admin', AdminController::class)->parameter('admin', 'user');
+        Route::get('content/{content}/duplicate', [ContentController::class, 'duplicate'])->name('content.duplicate');
         Route::resource('content', ContentController::class);
     });
 
