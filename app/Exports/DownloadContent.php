@@ -16,7 +16,8 @@ class DownloadContent implements FromArray, WithHeadings
 
     public function __construct($start_at, $end_at, $web)
     {
-        $this->content = Content::where(function($query) use ($start_at, $end_at) {
+        $this->content = Content::select('title', 'posted_at')
+        ->where(function($query) use ($start_at, $end_at) {
             $query->whereDate('posted_at', '>=', $start_at)->whereDate('posted_at', '<=', $end_at);
         })->get();
         $this->url_map = URLMapping::whereIn('id', $web)->get();

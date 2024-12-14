@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DomainController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\ImageController;
@@ -49,6 +50,7 @@ Route::middleware(['no_auth'])->group(function () {
         Route::resource('admin', AdminController::class)->parameter('admin', 'user');
         Route::get('content/{content}/duplicate', [ContentController::class, 'duplicate'])->name('content.duplicate');
         Route::resource('content', ContentController::class);
+        Route::resource('domain', DomainController::class)->only('index', 'store', 'create', 'destroy');
     });
 
     Route::get('logout', [LoginRegisterController::class, 'logout'])->name('logout');

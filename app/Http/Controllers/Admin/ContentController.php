@@ -18,7 +18,7 @@ class ContentController extends Controller
     {
         if($request->ajax())
         {
-            $content = Content::orderBy('created_at', 'desc')->select()->limit(50);
+            $content = Content::orderBy('created_at', 'desc')->select('posted_at','title', 'slug', 'id');
             $domain = $request->getHttpHost();
             return datatables()->of($content)
             ->addIndexColumn()

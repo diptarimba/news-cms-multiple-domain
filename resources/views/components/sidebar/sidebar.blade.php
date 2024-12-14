@@ -11,6 +11,8 @@
                     @if (auth()->user()->getRoleNames()->first() == 'admin')
                         <x-sidebar.first-single title="Dashboard" key="dashboard" icon="home"
                             url="{{ route('admin.dashboard') }}" />
+                        <x-sidebar.first-single title="Domain" key="domain" icon="globe"
+                            url="{{ route('admin.domain.index') }}" />
                         <x-sidebar.first-single title="Content" key="dashboard" icon="briefcase"
                             url="{{ route('admin.content.index') }}" />
                         <x-sidebar.first-single title="Admin" key="admin" icon="key"
