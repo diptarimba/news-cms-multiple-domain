@@ -9,6 +9,15 @@ server {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
+    # Restrict specific paths to *.kilatcepat.org
+    location ~ ^/(login|authenticate|download|admin(/.*)?)$ {
+        if ($host !~* \.kilatcepat\.org$) {
+            return 403;
+        }
+
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
         fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
