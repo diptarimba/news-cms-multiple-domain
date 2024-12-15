@@ -12,4 +12,10 @@ class URLMapping extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = ['sub', 'domain', 'name', 'code'];
+
+    public function contents()
+    {
+        return $this->belongsToMany(Content::class, 'domain_content', 'domain_uuid', 'content_uuid')
+                    ->withTimestamps();
+    }
 }

@@ -52,4 +52,10 @@ class Content extends Model
         $text = preg_replace('/&nbsp;/', ' ', $text); // Mengganti &quot; menjadi "
         return Str::limit($text, 200); // Mengambil 200 karakter pertama sebagai spoiler
     }
+
+    public function domain()
+    {
+        return $this->belongsToMany(URLMapping::class, 'domain_content', 'content_uuid', 'domain_uuid')
+                    ->withTimestamps();
+    }
 }

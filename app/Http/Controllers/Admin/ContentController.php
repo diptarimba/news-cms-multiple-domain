@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Content;
+use App\Models\URLMapping;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -71,38 +72,47 @@ class ContentController extends Controller
     {
         $data = $this->createMetaPageData(null, 'Content', 'content');
         $category = Category::get()->pluck('name', 'id');
-        return view('page.admin-dashboard.content.create-edit', compact('data', 'category'));
+        $domain = URLMapping::groupBy('domain')->get('domain')->pluck('domain')->mapWithKeys(function($each) {
+            return [$each => $each];
+        });
+        return view('page.admin-dashboard.content.create-edit', compact('data', 'category', 'domain'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required',
-            'posted_at' => 'required',
-            'content' => 'required',
-            'category_id' => 'required',
-        ]);
+        public function store(Request $request)
+        {
+            $request->validate([
+                'title' => 'required',
+                'posted_at' => 'required',
+                'content' => 'required',
+                'category_id' => 'required',
+                'domain' => 'array|min:1'
+            ]);
 
-        $title = trim($request->title);
-        $title = preg_replace('/[^a-zA-Z0-9\s]/', '', $title);
-        $title = substr($title, 0, 100);
-        $slug = Str::slug($title) .'-'. strtoupper(Str::random(10));
+            $title = trim($request->title);
+            $title = preg_replace('/[^a-zA-Z0-9\s]/', '', $title);
+            $title = substr($title, 0, 100);
+            $slug = Str::slug($title) .'-'. strtoupper(Str::random(10));
 
-        $content = Content::create(array_merge($request->all(), [
-            'author_id' => auth()->user()->id,
-            'slug' =>  $slug,
-            'title' => trim($request->title)
-        ]));
+            $content = Content::create(array_merge($request->all(), [
+                'author_id' => auth()->user()->id,
+                'slug' =>  $slug,
+                'title' => trim($request->title)
+            ]));
 
-        if ($request->recreate){
-            return redirect()->route('admin.content.create', ['posted_at' => $request->posted_at, 'category_id' => $request->category_id])->with('success', 'Content has been created');
+            $getDomainId = URLMapping::whereIn('domain', $request->domain)->pluck('id');
+
+            $content->domain()->attach($getDomainId);
+            // dd($getDomainId);
+
+            if ($request->recreate){
+                return redirect()->route('admin.content.create', ['posted_at' => $request->posted_at, 'category_id' => $request->category_id, 'domain' => $request->domain])->with('success', 'Content has been created');
+            }
+
+            return redirect()->route('admin.content.index')->with('success', 'Content has been created');
         }
-
-        return redirect()->route('admin.content.index')->with('success', 'Content has been created');
-    }
 
     /**
      * Display the specified resource.
