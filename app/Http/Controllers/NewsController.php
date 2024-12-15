@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\DownloadContent;
+use App\Exports\DownloadContentByCode;
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\URLMapping;
@@ -74,5 +75,24 @@ class NewsController extends Controller
         ]);
 
         return Excel::download(new DownloadContent($request->start_at, $request->end_at, $request->website_id), 'news.xlsx');
+    }
+
+    public function downloadByCodeIndex()
+    {
+        return view('page.download.code');
+    }
+
+    public function downloadByCode(Request $request)
+    {
+        $request->validate([
+            'code' => 'required'
+        ]);
+
+        $content = Content::where('code', $request->code)->first();
+        if (is_null($content)) {
+            return redirect()->back()->with('error', 'Code not found');
+        }
+
+        return Excel::download(new DownloadContentByCode($request->code), 'news.xlsx');
     }
 }

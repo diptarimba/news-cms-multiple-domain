@@ -16,6 +16,7 @@ class Content extends Model
         'id',
         'title',
         'content',
+        'code',
         'category_id',
         'author_id',
         'posted_at',

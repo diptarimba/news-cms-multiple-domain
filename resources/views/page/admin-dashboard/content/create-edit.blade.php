@@ -11,6 +11,7 @@
 @section('content')
     <x-util.card title="{{ $data['title'] }}">
         <x-form.base url="{{ $data['url'] }}" method="POST">
+            <x-form.input name="code" label="Batch Code" placeholder="input batch code" value="{{ $content->code ?? (request()->get('code') ?? '') }}" />
             <x-form.input name="title" label="Title" placeholder="input content title" value="{{ $content->title ?? '' }}" />
             <x-form.text name="content" label="Content" value="{{ $content->content ?? '' }}"
                 link_upload="{{ route('image.upload') }}" />

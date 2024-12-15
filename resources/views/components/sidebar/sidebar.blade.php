@@ -18,7 +18,13 @@
                         <x-sidebar.first-single title="Admin" key="admin" icon="key"
                             url="{{ route('admin.admin.index') }}" />
                     @endif
+                @else
+                <x-sidebar.first-single title="Download" key="download" icon="home"
+                url="{{ route('news.form') }}" />
+                <x-sidebar.first-single title="Download By Code" key="download" icon="home"
+                url="{{ route('news.code.form') }}" />
                 @endif
+
             </ul>
         </div>
         <!-- Sidebar -->

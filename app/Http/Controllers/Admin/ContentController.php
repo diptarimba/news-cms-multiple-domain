@@ -87,8 +87,9 @@ class ContentController extends Controller
                 'title' => 'required',
                 'posted_at' => 'required',
                 'content' => 'required',
+                'code' => 'sometimes',
                 'category_id' => 'required',
-                'domain' => 'array|min:1'
+                'domain' => 'required|array|min:1'
             ]);
 
             $title = trim($request->title);
@@ -107,8 +108,13 @@ class ContentController extends Controller
             $content->domain()->attach($getDomainId);
             // dd($getDomainId);
 
+            $returnData = ['posted_at' => $request->posted_at, 'category_id' => $request->category_id, 'domain' => $request->domain];
+            if ($request->code){
+                $returnData['code'] = $request->code;
+            }
+
             if ($request->recreate){
-                return redirect()->route('admin.content.create', ['posted_at' => $request->posted_at, 'category_id' => $request->category_id, 'domain' => $request->domain])->with('success', 'Content has been created');
+                return redirect()->route('admin.content.create', $returnData)->with('success', 'Content has been created');
             }
 
             return redirect()->route('admin.content.index')->with('success', 'Content has been created');

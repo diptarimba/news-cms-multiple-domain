@@ -230,7 +230,8 @@
                         id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="true">
                         <img class="h-8 w-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
-                            src="{{ Auth::user()->picture ?? asset('assets-dashboard/images/placeholder.png') }}"
+                            {{-- src="{{ Auth::user()->picture ?? asset('assets-dashboard/images/placeholder.png') }}" --}}
+                            src="{{ asset('assets-dashboard/images/placeholder.png') }}"
                             alt="Header Avatar">
                         <span class="fw-medium hidden xl:block">{{ Auth::user()->name }}</span>
                         <i class="mdi mdi-chevron-down align-bottom hidden xl:block"></i>
