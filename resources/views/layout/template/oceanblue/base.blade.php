@@ -48,7 +48,7 @@
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
             <div class="flex items-center">
                 <img alt="Logo" class="h-10 w-10" height="50"
-                    src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-EpAov7aTUy4BCYmD6GKTjpvO/user-JR3sZQpahJls32fj7ZDxreYz/img-99OjzVjTtN6l3zHm0Ykouerw.png?st=2024-06-15T07%3A57%3A42Z&amp;se=2024-06-15T09%3A57%3A42Z&amp;sp=r&amp;sv=2023-11-03&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-06-14T19%3A12%3A09Z&amp;ske=2024-06-15T19%3A12%3A09Z&amp;sks=b&amp;skv=2023-11-03&amp;sig=ksWdfrnJj01csF4C/4GIREuzck0l5d4%2Bq4WWjp59SBc%3D"
+                    src="{{asset('assets-dashboard/images/placeholder.png')}}"
                     width="50" />
                 <h1 class="text-2xl font-bold ml-2">
                     @yield('webname')

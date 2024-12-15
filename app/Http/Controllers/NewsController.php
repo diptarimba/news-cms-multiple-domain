@@ -20,11 +20,16 @@ class NewsController extends Controller
         unset($domain[0]);
         $domain = implode(".", $domain);
 
-        $template = URLMapping::where('sub', $subdomain)->where('domain', $domain)->first();
+        if ($subdomain == 'localhost:8000') {
+            $subdomain = 'nasional';
+            $domain = 'listriknusantara.com';
+        }
 
+        $template = URLMapping::with('contents.category', 'contents.author')->where('sub', $subdomain)->where('domain', $domain)->first();
         $template = is_null($template) ? URLMapping::first(): $template;
+
         $templateCode = $template ? $template->code : 'greymilk';
-        $news = Content::with('author', 'category')->paginate(5);
+        $news = $template->contents()->paginate(5);
         $recentlyArticle = Content::orderBy('created_at', 'desc')->get()->pluck('name');
         $category = Category::get()->pluck('name');
         return view('page.news.index', compact('news', 'subdomain', 'templateCode', 'recentlyArticle', 'category', 'template'));

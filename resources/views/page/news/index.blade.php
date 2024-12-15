@@ -37,7 +37,7 @@
                 [
                     'category' => $each->category->name,
                     'title' => $each->title,
-                    'date' => $each->posted_at,
+                    'date' => date('d F Y', strtotime($each->posted_at)),
                     'content' => $each->spoiler,
                     'author' => $each->author,
                     'image' => $each->image,

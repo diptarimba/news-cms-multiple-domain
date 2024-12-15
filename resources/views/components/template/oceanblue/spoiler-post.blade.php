@@ -12,7 +12,7 @@
     <div class="flex items-center justify-between">
         <div class="flex items-center">
             <img alt="Author" class="h-10 w-10 rounded-full" height="40"
-                src="{{$author->picture}}"
+                src="{{asset('assets-dashboard/images/placeholder.png')}}"
                 width="40" />
             <span class="ml-2 text-gray-600">
                 Author
