@@ -27,6 +27,9 @@ class NewsController extends Controller
         }
 
         $template = URLMapping::with('contents.category', 'contents.author')->where('sub', $subdomain)->where('domain', $domain)->first();
+        if (is_null($template)) {
+            abort(404);
+        }
         $template = is_null($template) ? URLMapping::first(): $template;
 
         $templateCode = $template ? $template->code : 'greymilk';
