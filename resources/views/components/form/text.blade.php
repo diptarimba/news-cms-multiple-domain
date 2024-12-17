@@ -14,8 +14,8 @@
 </div>
 
 @push('additional-header')
-    <script src="https://cdn.tiny.cloud/1/0kexw29k1kvdcul38wa8x0u3t6gwwng2qjq1ehfl2o2t3brd/7/tinymce.min.js"
-        referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/0kexw29k1kvdcul38wa8x0u3t6gwwng2qjq1ehfl2o2t3brd/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
     <script>
         tinymce.init({
             selector: '#input-{{ $name }}',
