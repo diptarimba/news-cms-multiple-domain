@@ -22,7 +22,7 @@ class DownloadContentByCode implements FromQuery, WithHeadings, WithMapping, Sho
 
     public function query()
     {
-        return Content::query()->select('title', 'posted_at', 'slug')
+        return Content::query()->select('id','title', 'posted_at', 'slug')
             ->where('code', $this->code)
             ->with(['domain'])
             ->orderBy('posted_at');
