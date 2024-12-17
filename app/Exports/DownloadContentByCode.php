@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 class DownloadContentByCode implements FromQuery, WithHeadings, WithMapping, ShouldQueue, WithChunkReading
 {
     protected $code;
+    protected $no = 1;
 
     public function __construct($code)
     {
@@ -23,18 +24,18 @@ class DownloadContentByCode implements FromQuery, WithHeadings, WithMapping, Sho
     {
         return Content::query()->select('title', 'posted_at', 'slug')
             ->where('code', $this->code)
-            ->with(['urlMapping'])
+            ->with(['domain'])
             ->orderBy('posted_at');
     }
 
     public function map($content): array
     {
         return [
-            'No' => $content->id,
+            'No' => $this->no++,
             'Date' => Carbon::parse($content->posted_at)->format('d F Y'),
             'Title' => $content->title,
-            'URL' => $content->urlMapping->sub . '.' . $content->urlMapping->domain . '/show/' . $content->slug,
-            'Media' => $content->urlMapping->domain,
+            'URL' => $content->domain->sub . '.' . $content->domain->domain . '/show/' . $content->slug,
+            'Media' => $content->domain->domain,
         ];
     }
 
