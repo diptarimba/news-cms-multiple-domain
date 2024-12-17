@@ -14,6 +14,7 @@
                     <th class="p-4 pr-8 border border-y-2 border-gray-50 dark:border-zinc-600 border-l-0">Title</th>
                     <th class="p-4 pr-8 border border-y-2 border-gray-50 dark:border-zinc-600 border-l-0">Post Date</th>
                     <th class="p-4 pr-8 border border-y-2 border-gray-50 dark:border-zinc-600 border-l-0">Link</th>
+                    <th class="p-4 pr-8 border border-y-2 border-gray-50 dark:border-zinc-600 border-l-0">Code</th>
                     <th class="p-4 pr-8 border border-y-2 border-gray-50 dark:border-zinc-600 border-l-0">Action</th>
                     </th>
                 </tr>
@@ -29,6 +30,7 @@
     <x-datatables.column name="title"/>
     <x-datatables.column name="posted_at"/>
     <x-datatables.column name="link"/>
+    <x-datatables.column name="code"/>
     <x-datatables.action />
 </x-datatables.single>
 @endsection

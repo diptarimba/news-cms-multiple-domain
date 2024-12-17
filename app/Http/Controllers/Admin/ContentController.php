@@ -23,6 +23,9 @@ class ContentController extends Controller
             $domain = $request->getHttpHost();
             return datatables()->of($content)
             ->addIndexColumn()
+            ->addColumn('code', function($query){
+                return $query->code ?? '';
+            })
             ->addColumn('posted_at', function($query){
                 return Carbon::parse($query->posted_at)->format("d F Y");
             })
