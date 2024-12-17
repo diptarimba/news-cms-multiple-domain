@@ -103,6 +103,7 @@ class ContentController extends Controller
             $content = Content::create(array_merge($request->all(), [
                 'author_id' => auth()->user()->id,
                 'slug' =>  $slug,
+                'code' => $request->code,
                 'title' => trim($request->title)
             ]));
 
