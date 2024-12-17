@@ -30,6 +30,7 @@ class DownloadContentByCode implements FromQuery, WithHeadings, WithMapping, Sho
 
     public function map($content): array
     {
+        dd($content);
         return [
             'No' => $this->no++,
             'Date' => Carbon::parse($content->posted_at)->format('d F Y'),
