@@ -9,7 +9,7 @@ use App\Models\URLMapping;
 
 class DomainController extends Controller
 {
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         if ($request->ajax()) {
             $web = URLMapping::select();
@@ -23,7 +23,7 @@ class DomainController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
-        }   
+        }
 
         return view('page.admin-dashboard.domain.index');
     }
@@ -67,6 +67,8 @@ class DomainController extends Controller
                 'domain' => $request->domain,
                 'name' => $request->name,
                 'code' => $request->code,
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
 
