@@ -14,7 +14,7 @@
 </div>
 
 @push('additional-header')
-    <script src="https://cdn.tiny.cloud/1/nowi8bd9wt41eu743pd257t2negt5d1evpjiln4f3zc10lkq/tinymce/7/tinymce.min.js"
+    <script src="https://cdn.tiny.cloud/1/0kexw29k1kvdcul38wa8x0u3t6gwwng2qjq1ehfl2o2t3brd/7/tinymce.min.js"
         referrerpolicy="origin"></script>
     <script>
         tinymce.init({
