@@ -96,6 +96,6 @@ class NewsController extends Controller
             return redirect()->back()->with('error', 'Code not found');
         }
 
-        return Excel::download(new DownloadContentByCode($request->code), 'news.xlsx');
+        return Excel::download(new DownloadContentByCode($request->code),  'news_'.$request->code.'.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 }
