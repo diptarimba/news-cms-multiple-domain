@@ -30,7 +30,7 @@ class NewsController extends Controller
         if (is_null($template)) {
             abort(404);
         }
-        $template = is_null($template) ? URLMapping::first(): $template;
+        $template = is_null($template) ? URLMapping::first() : $template;
 
         $templateCode = $template ? $template->code : 'greymilk';
         $news = $template->contents()->paginate(5);
@@ -53,7 +53,7 @@ class NewsController extends Controller
         }
 
         $template = URLMapping::where('sub', $subdomain)->where('domain', $domain)->first();
-        $template = is_null($template) ? URLMapping::first(): $template;
+        $template = is_null($template) ? URLMapping::first() : $template;
         $templateCode = $template ? $template->code : 'greymilk';
         $category = Category::get()->pluck('name');
         $news->posted_at = Carbon::parse($news->posted_at)->format("d F Y");
@@ -63,7 +63,7 @@ class NewsController extends Controller
     public function custom_download()
     {
         $website = URLMapping::get();
-        $website = $website->mapWithKeys(function($query) {
+        $website = $website->mapWithKeys(function ($query) {
             return [$query->id => $query->sub . '.' . $query->domain];
         });
         return view('page.download.form', compact('website'));
@@ -71,10 +71,10 @@ class NewsController extends Controller
     public function download(Request $request)
     {
         $request->validate([
-           'start_at' => 'required',
-           'end_at' => 'required',
-           'website_id' => 'required|array',
-           'website_id.*' => 'required|exists:u_r_l_mappings,id',
+            'start_at' => 'required',
+            'end_at' => 'required',
+            'website_id' => 'required|array',
+            'website_id.*' => 'required|exists:u_r_l_mappings,id',
         ]);
 
         return Excel::download(new DownloadContent($request->start_at, $request->end_at, $request->website_id), 'news.xlsx');
@@ -87,6 +87,9 @@ class NewsController extends Controller
 
     public function downloadByCode(Request $request)
     {
+        set_time_limit(300); // Menyesuaikan waktu eksekusi
+        ini_set('memory_limit', '512M'); // Menyesuaikan batas memori
+
         $request->validate([
             'code' => 'required'
         ]);
@@ -96,6 +99,6 @@ class NewsController extends Controller
             return redirect()->back()->with('error', 'Code not found');
         }
 
-        return Excel::download(new DownloadContentByCode($request->code),  'news_'.$request->code.'.csv', \Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new DownloadContentByCode($request->code),  'news_' . $request->code . '.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 }
