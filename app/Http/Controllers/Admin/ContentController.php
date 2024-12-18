@@ -100,9 +100,8 @@ class ContentController extends Controller
             $title = substr($title, 0, 100);
             $slug = Str::slug($title) .'-'. strtoupper(Str::random(10));
 
-            $content = Content::firstOrCreate(['content' => $request->content, 'title' => $request->title],array_merge($request->all(), [
+            $content = Content::firstOrCreate(['content' => $request->content, 'title' => $request->title],array_merge($request->execept('posted_at', 'code'), [
                 'author_id' => auth()->user()->id,
-                'slug' =>  $slug,
                 'title' => trim($request->title)
             ]));
 
