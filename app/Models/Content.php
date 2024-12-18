@@ -57,6 +57,7 @@ class Content extends Model
     public function domain()
     {
         return $this->belongsToMany(URLMapping::class, 'domain_content', 'content_uuid', 'domain_uuid')
-                    ->withTimestamps();
+                    ->withTimestamps()
+                    ->withPivot('slug', 'posted_at', 'code');
     }
 }

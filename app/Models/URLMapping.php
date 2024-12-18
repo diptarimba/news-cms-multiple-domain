@@ -16,6 +16,6 @@ class URLMapping extends Model
     public function contents()
     {
         return $this->belongsToMany(Content::class, 'domain_content', 'domain_uuid', 'content_uuid')
-                    ->withTimestamps();
+                    ->withTimestamps()->withPivot('slug', 'posted_at', 'code');
     }
 }

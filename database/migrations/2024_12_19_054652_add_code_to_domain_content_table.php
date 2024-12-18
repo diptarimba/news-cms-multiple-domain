@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contents', function (Blueprint $table) {
-            $table->string('code')->nullable()->after('content');
+        Schema::table('domain_content', function (Blueprint $table) {
+            $table->string('code')->nullable()->after('posted_at');
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contents', function (Blueprint $table) {
+        Schema::table('domain_content', function (Blueprint $table) {
             $table->dropColumn('code');
         });
     }

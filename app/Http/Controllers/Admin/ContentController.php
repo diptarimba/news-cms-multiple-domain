@@ -100,7 +100,7 @@ class ContentController extends Controller
             $title = substr($title, 0, 100);
             $slug = Str::slug($title) .'-'. strtoupper(Str::random(10));
 
-            $content = Content::create(array_merge($request->all(), [
+            $content = Content::firstOrCreate(['content' => $request->content, 'title' => $request->title],array_merge($request->all(), [
                 'author_id' => auth()->user()->id,
                 'slug' =>  $slug,
                 'title' => trim($request->title)
@@ -108,7 +108,11 @@ class ContentController extends Controller
 
             $getDomainId = URLMapping::whereIn('domain', $request->domain)->pluck('id');
 
-            $content->domain()->attach($getDomainId);
+            $content->domain()->attach($getDomainId, [
+                'slug' => $slug,
+                'posted_at' => $request->posted_at,
+                'code' => $request->code
+            ]);
             // dd($getDomainId);
 
             $returnData = ['posted_at' => $request->posted_at, 'category_id' => $request->category_id, 'domain' => $request->domain];

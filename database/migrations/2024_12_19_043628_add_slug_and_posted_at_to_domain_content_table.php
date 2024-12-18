@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('domain_content', function (Blueprint $table) {
-            //
+            $table->dropColumn(['slug', 'posted_at']);
         });
     }
 };
