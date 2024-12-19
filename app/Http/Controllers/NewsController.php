@@ -55,9 +55,10 @@ class NewsController extends Controller
             abort(404);
         }
         $templateCode = $news ? $news->domain->first()->code : 'greymilk';
+        $templateName = $news ? $news->domain->first()->name : 'Berita Indonesia';
         $category = Category::get()->pluck('name');
         $news->posted_at = Carbon::parse($news->domain()->first()->pivot->posted_at)->format("d F Y");
-        return view('page.news.show', compact('news', 'category', 'templateCode'));
+        return view('page.news.show', compact('news', 'category', 'templateCode', 'templateName'));
     }
 
     public function custom_download()

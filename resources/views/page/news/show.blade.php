@@ -8,7 +8,7 @@
     @endforeach
 @endsection
 
-@section('webname', $template->name)
+@section('webname', $templateName)
 
 @section('content')
     @include(
