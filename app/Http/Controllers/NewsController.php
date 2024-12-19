@@ -57,7 +57,7 @@ class NewsController extends Controller
         $templateCode = $news ? $news->domain->first()->code : 'greymilk';
         $category = Category::get()->pluck('name');
         $news->posted_at = Carbon::parse($news->domain()->first()->pivot->posted_at)->format("d F Y");
-        return view('page.news.show', compact('news', 'category', 'templateCode', 'template'));
+        return view('page.news.show', compact('news', 'category', 'templateCode'));
     }
 
     public function custom_download()
